@@ -3,12 +3,14 @@ import { User } from 'src/users/entities/user.entity';
 import {
   Column,
   Entity,
+  Index,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
 @Entity()
+@Index(['name', 'user'], { unique: true })
 export class BucketList {
   @PrimaryGeneratedColumn()
   id: number;
