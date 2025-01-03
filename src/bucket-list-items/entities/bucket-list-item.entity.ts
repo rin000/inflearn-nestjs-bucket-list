@@ -10,7 +10,9 @@ export class BucketListItem {
   @ManyToOne(() => BucketList, (bucketList) => bucketList.items)
   bucketList: BucketList;
 
-  @ManyToOne(() => Destination, (destination) => destination.bucketListItems)
+  @ManyToOne(() => Destination, (destination) => destination.bucketListItems, {
+    eager: true, // eager: 필드를 항상 가져옴
+  })
   destination: Destination;
 
   @Column({
