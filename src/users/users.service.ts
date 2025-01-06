@@ -31,6 +31,10 @@ export class UsersService {
     });
   }
 
+  async countAll(): Promise<number> {
+    return this.userRepository.count();
+  }
+
   async update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
     await this.userRepository.update(id, updateUserDto);
     return this.findById(id);
