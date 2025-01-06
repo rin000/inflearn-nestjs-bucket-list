@@ -4,7 +4,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { CreateDestinationDto } from './dto/create-destination.dto';
-import { Repository } from 'typeorm';
+import { Like, Repository } from 'typeorm';
 import { Destination } from './entities/destination.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 
@@ -42,6 +42,14 @@ export class DestinationsService {
   // 4.	**여행지 상세 조회 API** - 특정 여행지의 세부 정보를 조회하는 API 구현 (GET /destinations/:id)
   async findById(id: number) {
     return this.destinationsRepository.findOneBy({ id });
+  }
+
+  async search(q: string): Promise<Destination[]> {
+    return this.destinationsRepository.find({
+      where: {
+        name: Like(`%${q}%`),
+      },
+    });
   }
 
   // 5.	**여행지 삭제 API** - 특정 여행지 삭제 API 구현 (DELETE /destinations/:id)
