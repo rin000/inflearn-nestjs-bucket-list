@@ -46,9 +46,14 @@ export class DestinationsService {
 
   async search(q: string): Promise<Destination[]> {
     return this.destinationsRepository.find({
-      where: {
-        name: Like(`%${q}%`),
-      },
+      where: [
+        {
+          name: Like(`%${q}%`),
+        },
+        {
+          description: Like(`%${q}%`),
+        },
+      ],
     });
   }
 
